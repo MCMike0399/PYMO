@@ -5,7 +5,7 @@ import "../../Fonts/Fonts.css";
 type Props = {
   text: string;
   Icon: any;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> ;
 };
 
 function SidebarLink(props: Props) {
@@ -16,10 +16,10 @@ function SidebarLink(props: Props) {
         alignItems: "center",
         display: "flex",
         flexWrap: "wrap",
-        "&:hover": {
+        /*"&:hover": {
           background: "#c4c4cf",
           borderRadius: "1rem"
-        },
+        },*/
         height: '4rem',
         width: '100%',
         
