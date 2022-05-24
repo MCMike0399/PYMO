@@ -9,6 +9,7 @@ import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import SidebarLink from "./Components/Sidebar/SidebarLink";
 import Header from "./Components/Sidebar/Header";
 import Hospital from "./Components/Hospital/Hospital";
+import Insumos from "./Components/Insumos/Insumos";
 
 const commonStyles = {
   bgcolor: "background.paper",
@@ -22,13 +23,13 @@ const commonStyles = {
 function App() {
   const [selectedTab, setSelectedTab] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    console.log(newValue);
     setSelectedTab(newValue);
   };
 
   return (
     <Grid container direction="row">
       <Grid
+        container
         direction="column"
         alignItems="flex-start"
         justifyContent="flex-start"
@@ -62,6 +63,7 @@ function App() {
       </Grid>
       <Grid item xs>
         {selectedTab === 1 && <Hospital />}
+        {selectedTab === 5 && <Insumos />}
       </Grid>
     </Grid>
   );

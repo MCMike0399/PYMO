@@ -13,13 +13,14 @@ create table insumos (
 	idInsumo int auto_increment primary key,
     sku varchar(100),
     descripcion varchar(250),
-    unidad varchar(50)
+    unidad varchar(50),
+    cantidad int
 );
 
 create table casos (
 	idCaso int auto_increment primary key,
     claveH int,
-    periodoMes date, -- Mes y año
+    periodoMes date, -- Mes y año	
     noCasos int,
     foreign key(claveH) references hospital(claveH)
 );
