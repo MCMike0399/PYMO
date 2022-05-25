@@ -1,8 +1,11 @@
 export default interface IShipping {
     id: number;
-    fechaProgramada: Date;
+    fecha: Date;
     fechaEnvio: Date;
+    fechaConfirmada: Date;
     nombre: string;
     descripcion: string;
-    cantidadAprobada: number
+    cantidadAprobada: number;
+    claveH: number;
+    idInsumo: number;
 }

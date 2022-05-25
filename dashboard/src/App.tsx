@@ -52,16 +52,13 @@ function App() {
   />*/}
           <Tab
             icon={<SidebarLink text="Hospitales" Icon={LocalHospitalIcon} />}
-            sx={{ width: "14rem" }} 
+            sx={{ width: "14rem" }}
           />
           <Tab
             icon={<SidebarLink text="Pedidos" Icon={LocalGroceryStoreIcon} />}
           />
           <Tab
             icon={<SidebarLink text="Shipping" Icon={LocalShippingIcon} />}
-          />
-          <Tab
-            icon={<SidebarLink text="Entregas" Icon={LocalPostOfficeIcon} />}
           />
           <Tab icon={<SidebarLink text="Insumos" Icon={InventoryIcon} />} />
         </Tabs>
@@ -70,8 +67,7 @@ function App() {
         {selectedTab === 0 && <Hospital />}
         {selectedTab === 1 && <Pedidos />}
         {selectedTab === 2 && <Shipping />}
-        {selectedTab === 3 && <Entregas />}
-        {selectedTab === 4 && <Insumos />}
+        {selectedTab === 3 && <Insumos />}
       </Grid>
     </Grid>
   );

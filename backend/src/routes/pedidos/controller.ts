@@ -59,7 +59,7 @@ async function getPedidos(req: Request, res: Response) {
 
   const connection = createPool(credentials);
 
-  let queryStr = `select idPedido as 'id', pe.cantidadPedida, pe.cantidadAprobada, pe.fecha, ho.nombre, ins.descripcion 
+  let queryStr = `select idPedido as 'id', pe.cantidadPedida, pe.cantidadAprobada, pe.fecha, ho.nombre, ho.claveH ,ins.descripcion, ins.idInsumo 
   from pedidos pe, hospital ho, insumos ins where pe.claveH=ho.claveH and pe.idInsumo=ins.idInsumo;`;
   const results: IPedidos = await queryPromise(queryStr, connection);
   console.log(results);

@@ -26,7 +26,7 @@ function Insumos() {
   }, []);
 
   return (
-    <Grid sx={{ height: 300, width: "100%" }}>
+    <Grid sx={{ height: 300, width: "100%", backgroundColor: "white" }}>
       <DataGridPro rows={tableData} columns={columns} />
     </Grid>
   );
