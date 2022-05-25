@@ -10,6 +10,10 @@ import SidebarLink from "./Components/Sidebar/SidebarLink";
 import Header from "./Components/Sidebar/Header";
 import Hospital from "./Components/Hospital/Hospital";
 import Insumos from "./Components/Insumos/Insumos";
+import Pedidos from "./Components/Pedidos/Pedidos";
+import Shipping from "./Components/Shipping/Shipping";
+import Entregas from "./Components/Entregas/Entregas";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 const commonStyles = {
   bgcolor: "background.paper",
@@ -62,7 +66,11 @@ function App() {
         </Tabs>
       </Grid>
       <Grid item xs>
+        {selectedTab === 0 && <Dashboard />}
         {selectedTab === 1 && <Hospital />}
+        {selectedTab === 2 && <Pedidos />}
+        {selectedTab === 3 && <Shipping />}
+        {selectedTab === 4 && <Entregas />}
         {selectedTab === 5 && <Insumos />}
       </Grid>
     </Grid>
