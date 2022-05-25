@@ -32,6 +32,8 @@ async function getEntregas(req: Request, res: Response) {
   const results: IPedidos = await queryPromise(queryStr, connection);
   console.log(results);
 
+  connection.end();
+
   res.json({ results });
 }
 

@@ -30,6 +30,8 @@ async function getInsumos(req: Request, res: Response) {
   const results: IInsumos = await queryPromise(queryStr, connection);
   console.log(results);
 
+  connection.end();
+
   res.json({ results });
 }
 

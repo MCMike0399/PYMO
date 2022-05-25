@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { createPool } from "mysql2";
 import IHospital from "../../Interfaces/IHospital";
-import { ConnectionOptions } from "mysql2/typings/mysql";
+import { ConnectionOptions, ResultSetHeader } from "mysql2/typings/mysql";
 import Pool from "mysql2/typings/mysql/lib/Pool";
 
 async function queryPromise(sql: string, pool: Pool): Promise<any> {
@@ -30,6 +30,8 @@ async function getHospitales(req: Request, res: Response) {
   from hospital ho, casos ca where ho.claveH=ca.claveH group by ho.claveH;`;
   const results: IHospital = await queryPromise(queryStr, connection);
   console.log(results);
+
+  connection.end();
 
   res.json({ results });
 }

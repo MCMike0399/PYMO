@@ -31,6 +31,8 @@ async function getShipping(req: Request, res: Response) {
   const results: IShipping = await queryPromise(queryStr, connection);
   console.log(results);
 
+  connection.end();
+
   res.json({ results });
 }
 

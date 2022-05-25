@@ -46,12 +46,13 @@ function App() {
           variant="fullWidth"
           onChange={handleChange}
         >
-          <Tab
+          {/* <Tab
             icon={<SidebarLink text="Dashboard" Icon={DashboardIcon} />}
             sx={{ width: "14rem" }}
-          />
+  />*/}
           <Tab
-            icon={<SidebarLink text="Hospital" Icon={LocalHospitalIcon} />}
+            icon={<SidebarLink text="Hospitales" Icon={LocalHospitalIcon} />}
+            sx={{ width: "14rem" }} 
           />
           <Tab
             icon={<SidebarLink text="Pedidos" Icon={LocalGroceryStoreIcon} />}
@@ -66,12 +67,11 @@ function App() {
         </Tabs>
       </Grid>
       <Grid item xs>
-        {selectedTab === 0 && <Dashboard />}
-        {selectedTab === 1 && <Hospital />}
-        {selectedTab === 2 && <Pedidos />}
-        {selectedTab === 3 && <Shipping />}
-        {selectedTab === 4 && <Entregas />}
-        {selectedTab === 5 && <Insumos />}
+        {selectedTab === 0 && <Hospital />}
+        {selectedTab === 1 && <Pedidos />}
+        {selectedTab === 2 && <Shipping />}
+        {selectedTab === 3 && <Entregas />}
+        {selectedTab === 4 && <Insumos />}
       </Grid>
     </Grid>
   );
