@@ -63,7 +63,27 @@ const columns: GridColDef[] = [
     field: "motivoRechazo",
     headerName: "Motivo Rechazo",
     width: 100,
+  },
+  {
+    field: "idInsumo",
+    headerName: "idInsumo",
+    width: 100,
     type: "number",
+    hide: true,
+  },
+  {
+    field: "claveH",
+    headerName: "claveH",
+    width: 100,
+    type: "number",
+    hide: true,
+  },
+  {
+    field: "idEntrega",
+    headerName: "idEntrega",
+    width: 100,
+    type: "number",
+    hide: true,
   },
 ];
 
@@ -72,7 +92,14 @@ function Shipping() {
   const [openEnvio, setOpenEnvio] = React.useState(false);
   const [openConfirmada, setOpenConfirmada] = React.useState(false);
   const [envioDate, setEnvioDate] = React.useState<Date | null>(new Date());
+  const [confirmDate, setConfirmDate] = React.useState<Date | null>(new Date());
   const [idShipping, setIdShipping] = React.useState(0);
+  const [idInsumo, setIdInsumo] = React.useState(0);
+  const [cantidadEntregada, setCantidadEntregada] = React.useState(0);
+  const [montoRechazado, setMontoRechazado] = React.useState(0);
+  const [motivoRechazo, setMotivoRechazo] = React.useState("");
+  const [claveH, setClaveH] = React.useState(0);
+  const [idEntrega, setIdEntrega] = React.useState(0);
 
   const handleClickOpenEnvio = () => {
     setOpenEnvio(true);
@@ -95,6 +122,24 @@ function Shipping() {
     console.log(res);
     await refresh();
     setOpenEnvio(false);
+  };
+  const handleClickGuardarConfirm = async () => {
+    const json = {
+      idShipping: idShipping,
+      idInsumo: idInsumo,
+      claveH: claveH,
+      cantidadEntregada: cantidadEntregada,
+      fechaConfirmada: new Date(confirmDate as Date)
+        .toISOString()
+        .split("T")[0],
+      montoRechazado: montoRechazado,
+      motivoRechazo: motivoRechazo,
+      idEntrega: idEntrega
+    };
+    const res = await axios.put("http://localhost:5000/entregas", json);
+    console.log(res);
+    await refresh();
+    setOpenConfirmada(false);
   };
 
   const refresh = async () => {
@@ -126,6 +171,10 @@ function Shipping() {
           onRowClick={(params, event, details) => {
             console.log(params.row);
             setIdShipping(params.row.id);
+            setIdInsumo(params.row.idInsumo);
+            setClaveH(params.row.claveH);
+            setCantidadEntregada(params.row.cantidadEntregada)
+            setIdEntrega(params.row.idEntrega);
           }}
         />
       </Grid>
@@ -136,19 +185,24 @@ function Shipping() {
         alignItems="center"
         justifyContent="center"
       >
-        <Button
-          onClick={handleClickOpenEnvio}
-          sx={{ backgroundColor: "white" }}
-        >
-          Envia Pedido
-        </Button>
-        <Button
-          onClick={handleClickOpenConfirmada}
-          sx={{ backgroundColor: "white" }}
-        >
-          Entrega Pedido
-        </Button>
+        <Grid item xs={2}>
+          <Button
+            onClick={handleClickOpenEnvio}
+            sx={{ backgroundColor: "white" }}
+          >
+            Envia Pedido
+          </Button>
+        </Grid>
+        <Grid item xs={2}>
+          <Button
+            onClick={handleClickOpenConfirmada}
+            sx={{ backgroundColor: "white" }}
+          >
+            Entrega Pedido
+          </Button>
+        </Grid>
       </Grid>
+
       <Dialog open={openEnvio} onClose={handleClickCloseEnvio}>
         <DialogTitle>Asignar Fecha</DialogTitle>
         <DialogContent>
@@ -171,6 +225,57 @@ function Shipping() {
         <DialogActions>
           <Button onClick={handleClickCloseEnvio}>Cancel</Button>
           <Button onClick={handleClickGuardarEnvio}>Guardar</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openConfirmada} onClose={handleClickCloseConfirmada}>
+        <DialogTitle>Entrega Pedido</DialogTitle>
+        <DialogContent>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              disableFuture
+              //label="Fecha"
+              openTo="year"
+              views={["year", "month", "day"]}
+              value={confirmDate}
+              onChange={(newValue) => {
+                setConfirmDate(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField size="small" sx={{ width: "11rem" }} {...params} />
+              )}
+            />
+          </LocalizationProvider>
+          <TextField
+            size="small"
+            sx={{ width: "11rem" }}
+            label="Cantidad Entregada"
+            type="number"
+            onChange={(event) => {
+              setCantidadEntregada(event.target.value as unknown as number);
+            }}
+          />
+          <TextField
+            size="small"
+            sx={{ width: "11rem" }}
+            label="Monto Rechazado"
+            type="number"
+            onChange={(event) => {
+              setMontoRechazado(event.target.value as unknown as number);
+            }}
+          />
+          <TextField
+            size="small"
+            sx={{ width: "11rem" }}
+            label="Motivo Rechazo"
+            onChange={(event) => {
+              setMotivoRechazo(event.target.value);
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClickCloseConfirmada}>Cancel</Button>
+          <Button onClick={handleClickGuardarConfirm}>Guardar</Button>
         </DialogActions>
       </Dialog>
     </>

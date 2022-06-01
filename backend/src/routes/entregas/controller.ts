@@ -37,4 +37,28 @@ async function getEntregas(req: Request, res: Response) {
   res.json({ results });
 }
 
-export { getEntregas };
+async function updateEntrega(req: Request, res: Response) {
+  const result = req.body;
+  console.log(result);
+
+  const credentials: ConnectionOptions = {
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "Hawk2021!",
+    database: "pymo",
+  };
+
+  const connection = createPool(credentials);
+
+  const queryStr = `UPDATE entregas SET cantidadEntregada=${result.cantidadEntregada}, fechaConfirmada='${result.fechaConfirmada}', montoRechazado=${result.montoRechazado}, motivoRechazo='${result.motivoRechazo}' where idShipping=${result.idShipping} and idEntrega=${result.idEntrega}`
+  console.log(queryStr);
+
+  await queryPromise(queryStr,connection);
+
+  connection.end();
+
+  res.json({ message: "success" });
+}
+
+export { getEntregas, updateEntrega };

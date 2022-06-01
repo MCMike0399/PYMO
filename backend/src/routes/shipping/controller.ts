@@ -74,7 +74,7 @@ async function getShipping(req: Request, res: Response) {
 
   const connection = createPool(credentials);
 
-  let queryStr = `select sh.idShipping as 'id',sh.fechaProgramada, sh.fechaEnvio, en.fechaConfirmada ,ho.nombre, ins.descripcion, pe.cantidadAprobada, en.cantidadEntregada, en.montoRechazado, en.motivoRechazo 
+  let queryStr = `select sh.idShipping as 'id',sh.fechaProgramada, sh.fechaEnvio, en.fechaConfirmada ,ho.nombre, ins.descripcion, pe.cantidadAprobada, en.cantidadEntregada, en.montoRechazado, en.motivoRechazo , ins.idInsumo, sh.claveH, en.idEntrega
   from hospital ho, insumos ins, pedidos pe, shipping sh, entregas en 
   where sh.claveH=ho.claveH and sh.idInsumo=ins.idInsumo and sh.idPedido=pe.idPedido and sh.idShipping=en.idShipping;`;
   const results = await queryPromise(queryStr, connection);
