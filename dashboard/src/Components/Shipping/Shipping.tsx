@@ -47,6 +47,24 @@ const columns: GridColDef[] = [
     width: 100,
     type: "number",
   },
+  {
+    field: "cantidadEntregada",
+    headerName: "Cantidad Entregada",
+    width: 100,
+    type: "number",
+  },
+  {
+    field: "montoRechazado",
+    headerName: "Monto Rechazado",
+    width: 100,
+    type: "number",
+  },
+  {
+    field: "motivoRechazo",
+    headerName: "Motivo Rechazo",
+    width: 100,
+    type: "number",
+  },
 ];
 
 function Shipping() {
@@ -75,24 +93,33 @@ function Shipping() {
     };
     const res = await axios.put("http://localhost:5000/shipping", json);
     console.log(res);
+    await refresh();
     setOpenEnvio(false);
   };
 
+  const refresh = async () => {
+    const data = await axios.get("http://localhost:5000/shipping");
+    setTableData(data.data.results);
+  };
+
   React.useEffect(() => {
-    const fetchData = async () => {
-      const data = await axios.get("http://localhost:5000/shipping");
-      return data;
-    };
-    fetchData()
-      .then((res: any) => {
-        setTableData(res.data.results);
+    refresh()
+      .then(() => {
+        console.log("Refreshed");
       })
       .catch(console.error);
   }, []);
 
   return (
     <>
-      <Grid sx={{ height: 400, width: "100%", backgroundColor: "white" }}>
+      <Grid
+        sx={{
+          height: 400,
+          width: "100%",
+          backgroundColor: "white",
+          marginTop: "0.7rem",
+        }}
+      >
         <DataGridPro
           rows={tableData}
           columns={columns}
@@ -109,8 +136,18 @@ function Shipping() {
         alignItems="center"
         justifyContent="center"
       >
-        <Button onClick={handleClickOpenEnvio}>Envia Pedido</Button>
-        <Button>Entrega Pedido</Button>
+        <Button
+          onClick={handleClickOpenEnvio}
+          sx={{ backgroundColor: "white" }}
+        >
+          Envia Pedido
+        </Button>
+        <Button
+          onClick={handleClickOpenConfirmada}
+          sx={{ backgroundColor: "white" }}
+        >
+          Entrega Pedido
+        </Button>
       </Grid>
       <Dialog open={openEnvio} onClose={handleClickCloseEnvio}>
         <DialogTitle>Asignar Fecha</DialogTitle>
@@ -120,7 +157,7 @@ function Shipping() {
               disableFuture
               //label="Fecha"
               openTo="year"
-              views={["year", "month"]}
+              views={["year", "month", "day"]}
               value={envioDate}
               onChange={(newValue) => {
                 setEnvioDate(newValue);

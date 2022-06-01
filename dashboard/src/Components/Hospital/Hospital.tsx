@@ -33,7 +33,7 @@ const columns: GridColDef[] = [
   {
     field: "casosTotales",
     headerName: "Casos Totales",
-    width: 100,
+    width: 110,
     type: "number",
   },
 ];
@@ -152,7 +152,14 @@ function Hospital() {
 
   return (
     <>
-      <Grid sx={{ height: 400, width: "100%", backgroundColor: "white" }}>
+      <Grid
+        sx={{
+          height: 400,
+          width: "100%",
+          backgroundColor: "white",
+          marginTop: "0.7rem",
+        }}
+      >
         <DataGridPro
           rows={tableData}
           columns={columns}
@@ -173,11 +180,30 @@ function Hospital() {
         alignItems="center"
         justifyContent="center"
       >
-        <Button onClick={handleClickOpenCubrebocas}>Asignar Cubrebocas</Button>
-        <Button onClick={handleClickOpenMascarillas}>
-          Asignar Mascarillas
-        </Button>
-        <Button onClick={handleClickOpenCaretas}>Asignar Caretas</Button>
+        <Grid item xs={2}>
+          <Button
+            onClick={handleClickOpenCubrebocas}
+            sx={{ backgroundColor: "white" }}
+          >
+            Asignar Cubrebocas
+          </Button>
+        </Grid>
+        <Grid item xs={2}>
+          <Button
+            onClick={handleClickOpenMascarillas}
+            sx={{ backgroundColor: "white" }}
+          >
+            Asignar Mascarillas
+          </Button>
+        </Grid>
+        <Grid item xs={2}>
+          <Button
+            onClick={handleClickOpenCaretas}
+            sx={{ backgroundColor: "white" }}
+          >
+            Asignar Caretas
+          </Button>
+        </Grid>
       </Grid>
       <Dialog open={openCubrebocas} onClose={handleCloseCubrebocas}>
         <DialogTitle>Crear Pedido</DialogTitle>
